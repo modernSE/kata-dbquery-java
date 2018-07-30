@@ -1,8 +1,8 @@
 package our.application;
 
-import third.party.library.IQueryBuilder;
+import third.party.library.QueryBuilder;
 
-public class FilterForHasLinkedContactBuilder implements IQueryBuilder {
+public class FilterForHasLinkedContactBuilder implements QueryBuilder {
 
 	private String table;
 	public FilterForHasLinkedContactBuilder(String table) {

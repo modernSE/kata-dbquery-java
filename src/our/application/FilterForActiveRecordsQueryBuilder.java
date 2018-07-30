@@ -1,8 +1,8 @@
 package our.application;
 
-import third.party.library.IQueryBuilder;
+import third.party.library.QueryBuilder;
 
-public class FilterForActiveRecordsQueryBuilder implements  IQueryBuilder {
+public class FilterForActiveRecordsQueryBuilder implements  QueryBuilder {
 
 private String table;
 

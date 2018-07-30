@@ -1,6 +1,6 @@
 package our.application;
 
-import third.party.library.IQueryBuilder;
+import third.party.library.QueryBuilder;
 import third.party.library.QueryExecutor;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ public class OurApplication {
     public static void main(String[] args) {
         QueryExecutor queryExecutor = new QueryExecutor();
 
-        List<IQueryBuilder> queryBuilders = Arrays.asList(
+        List<QueryBuilder> queryBuilders = Arrays.asList(
                 new FilterForActiveRecordsQueryBuilder("CONTACTS"),
                 new FilterForInactiveRecordsQueryBuilder("CONTACTS"),
                 new FilterForHasLinkedContactBuilder("CONTACTS"));

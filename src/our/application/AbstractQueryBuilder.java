@@ -1,8 +1,8 @@
 package our.application;
 
-import third.party.library.IQueryBuilder;
+import third.party.library.QueryBuilder;
 
-public abstract class AbstractQueryBuilder implements IQueryBuilder {
+public abstract class AbstractQueryBuilder implements QueryBuilder {
 
 //    final String table;
 //
