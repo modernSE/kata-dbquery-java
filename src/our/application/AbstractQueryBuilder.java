@@ -1,27 +1,35 @@
 package our.application;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import third.party.library.QueryBuilder;
 
 public abstract class AbstractQueryBuilder implements QueryBuilder {
 
-    private final String table;
+    protected final String table;
 
     public AbstractQueryBuilder(String table) {
         this.table = table;
     }
 
-    @Override
-    public String buildQuery() {
-        String baseQuery = buildBaseQuery();
-        String where = buildWherePart();
-        return baseQuery + " " + where;
+    public final String buildQuery() {
+    	String baseQuery = buildBaseQuery();
+        String where = buildWherePart();    
+        String query = baseQuery + ((where != null && !where.isEmpty()) ? " " + where : "");
+        validateQuery(query);        
+        return query;
     }
 
-    private String buildBaseQuery() {
+    protected String buildBaseQuery() {
         return "SELECT * FROM " + table;
     }
 
-    public abstract String buildWherePart();
+    protected String buildWherePart() {
+    	return null;
+    }
 
     @Override
     public void printQuery() {
@@ -32,13 +40,37 @@ public abstract class AbstractQueryBuilder implements QueryBuilder {
         if (query == null) {
             throw new RuntimeException("There's no query here!");
         }
+        
+        Set<String> tableCallsToCheck = getTableCalls(query);
 
-        if (SystemTableUtil.getSystemTables().contains(table.toUpperCase())) {
+        if(tableCallsToCheck.stream().filter(t -> SystemTableUtil.getSystemTables().contains(t)).findAny().isPresent()) {
             throw new RuntimeException("No system tables allowed");
         }
     }
+    
+    private Set<String> getTableCalls(final String query) {
+    	
+    	Set<String> tableCalls = getFromTableAppereans(query);
+    	tableCalls.addAll(getJoinTableAppereans(query));
+    	
+    	return tableCalls;
+    }
 
-    @Override
+    private Collection<? extends String> getJoinTableAppereans(final String query) {
+		//TODO extract JOIN values from query
+		return Collections.emptySet();
+	}
+
+	private Set<String> getFromTableAppereans(final String query) {		
+		//TODO extract FROM values from query
+		if(query.contains("SSHKEYS")) {
+			return Collections.singleton("SSHKEYS");			
+		} else {
+			return Collections.emptySet();
+		}
+	}
+
+	@Override
     public String wrapInsidePerformanceLogging() {
         return "SET PERFORMANCE LOGGING ENABLED; \n" + buildQuery() + "\nSET PERFORMANCE LOGGING DISABLED;";
     }

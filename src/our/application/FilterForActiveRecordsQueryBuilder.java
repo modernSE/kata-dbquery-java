@@ -9,6 +9,6 @@ public class FilterForActiveRecordsQueryBuilder extends AbstractQueryBuilder {
 
     @Override
     public String buildWherePart() {
-        return " WHERE ACTIVE=1";
+        return "WHERE ACTIVE=1";
     }
 }

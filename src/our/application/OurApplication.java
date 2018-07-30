@@ -14,6 +14,7 @@ public class OurApplication {
         List<QueryBuilder> queryBuilders = Arrays.asList(
                 new FilterForActiveRecordsQueryBuilder("CONTACTS"),
                 new FilterForInactiveRecordsQueryBuilder("CONTACTS"),
+               // new FilterForInactiveRecordsQueryBuilder("SSHKEYS"),
                 new FilterForHasLinkedContactBuilder("CONTACTS"));
 
         queryBuilders.stream()
