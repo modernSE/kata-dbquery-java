@@ -3,7 +3,7 @@ package our.application;
 public class HasLinkedContactQuery extends BaseQuery {
 
     public HasLinkedContactQuery() {
-        super("CONTACT");
+        super("CONTACTS");
     }
 
     @Override
