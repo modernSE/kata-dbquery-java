@@ -5,7 +5,7 @@ import java.util.List;
 
 public class QueryExecutor {
 
-    public List<List<String>> executeQuery(QueryBuilder builder) {
+    public List<List<String>> executeQuery(IQueryBuilder builder) {
         String query = builder.buildQuery();
 
         // to the database, Robin!

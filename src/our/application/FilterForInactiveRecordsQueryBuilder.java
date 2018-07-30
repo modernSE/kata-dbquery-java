@@ -1,14 +1,20 @@
 package our.application;
 
-public class FilterForInactiveRecordsQueryBuilder extends AbstractQueryBuilder {
+import third.party.library.IQueryBuilder;
 
+public class FilterForInactiveRecordsQueryBuilder implements IQueryBuilder {
+private String table;
 
     public FilterForInactiveRecordsQueryBuilder(String table) {
-        super(table);
+        this.table=table;
     }
 
-    @Override
-    public String buildWherePart() {
-        return " WHERE ACTIVE=0 OR ACTIVE IS NULL";
+    public String buildQuery() {
+    	UniversalQueryBuilder queryBuilder = new UniversalQueryBuilder(table, "", " WHERE ACTIVE=0 OR ACTIVE IS NULL");
+        return queryBuilder.createWhereQuery();
     }
+
+	public void printQuery() {
+		  System.out.println(buildQuery());
+	}
 }

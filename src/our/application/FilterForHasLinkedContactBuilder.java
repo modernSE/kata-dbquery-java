@@ -1,22 +1,22 @@
 package our.application;
 
-public class FilterForHasLinkedContactBuilder extends AbstractQueryBuilder {
+import third.party.library.IQueryBuilder;
 
-    private String table;
+public class FilterForHasLinkedContactBuilder implements IQueryBuilder {
 
-    public FilterForHasLinkedContactBuilder(String table) {
-        super(table);
-        this.table = table;
+	private String table;
+	public FilterForHasLinkedContactBuilder(String table) {
+        this.table=table;
     }
 
-    @Override
-    public String buildWherePart() {
-        // not used
-        return null;
+
+    public String buildQuery() { //Liskov
+    	UniversalQueryBuilder queryBuilder = new UniversalQueryBuilder(table, " AS A INNER JOIN ADDRESS AS B ", "WHERE A.ADDRESSID = B.ID");
+        return   queryBuilder.createJoinQuery();
     }
 
-    @Override
-    public String buildQuery() {
-        return "SELECT * FROM " + table + " AS A INNER JOIN ADDRESS AS B WHERE A.ADDRESSID = B.ID";
-    }
+	public void printQuery() {
+		System.out.println(buildQuery());
+		
+	}
 }
